@@ -19,7 +19,7 @@ function loadWidget(config) {
 	sessionStorage.removeItem("waifu-text");
 	document.body.insertAdjacentHTML("beforeend", `<div id="waifu">
 			<div id="waifu-tips"></div>
-			<canvas id="live2d" width="800" height="800"></canvas>
+			<canvas id="live2d" width="600" height="600"></canvas>
 			<div id="waifu-tool">
 				<span class="fa fa-lg fa-comment"></span>
 				<span class="fa fa-lg fa-paper-plane"></span>
@@ -67,16 +67,26 @@ function loadWidget(config) {
 
 	(function registerEventListener() {
 		document.querySelector("#waifu-tool .fa-comment").addEventListener("click", showHitokoto);
+		// document.querySelector("#waifu-tool .fa-paper-plane").addEventListener("click", () => {
+		// 	if (window.Asteroids) {
+		// 		if (!window.ASTEROIDSPLAYERS) window.ASTEROIDSPLAYERS = [];
+		// 		window.ASTEROIDSPLAYERS.push(new Asteroids());
+		// 	} else {
+		// 		const script = document.createElement("script");
+		// 		script.src = "https://cdn.jsdelivr.net/gh/stevenjoezhang/asteroids/asteroids.js";
+		// 		document.head.appendChild(script);
+		// 	}
+		// });
 		document.querySelector("#waifu-tool .fa-paper-plane").addEventListener("click", () => {
-			if (window.Asteroids) {
-				if (!window.ASTEROIDSPLAYERS) window.ASTEROIDSPLAYERS = [];
-				window.ASTEROIDSPLAYERS.push(new Asteroids());
+			// 检查侧边栏是否已经打开
+			const sidebar = document.querySelector("#sidebar");
+			if (sidebar.classList.contains("open")) {
+				sidebar.classList.remove("open");  // 如果已经打开，则关闭侧边栏
 			} else {
-				const script = document.createElement("script");
-				script.src = "https://cdn.jsdelivr.net/gh/stevenjoezhang/asteroids/asteroids.js";
-				document.head.appendChild(script);
+				sidebar.classList.add("open");     // 如果未打开，则打开侧边栏
 			}
 		});
+		
 		document.querySelector("#waifu-tool .fa-user-circle").addEventListener("click", loadOtherModel);
 		document.querySelector("#waifu-tool .fa-street-view").addEventListener("click", loadRandModel);
 		document.querySelector("#waifu-tool .fa-camera-retro").addEventListener("click", () => {
@@ -111,7 +121,7 @@ function loadWidget(config) {
  
 	(function welcomeMessage() {
 		let text;
-		if (location.pathname === "/lrplrplrp/"||location.pathname === "/lrplrplrp") { // 如果是主页，可在浏览器后台输入location.pathname确定判断条件
+		if (location.pathname === "/Dlicy/"||location.pathname === "/Dlicy") { // 如果是主页，可在浏览器后台输入location.pathname确定判断条件
 			const now = new Date().getHours();
 			if (now > 5 && now <= 7) text = ["早上好！一日之计在于晨，美好的一天就要开始了。","早啊，叫醒你的是理想还是闹钟呢。"];
 			else if (now > 7 && now <= 11) text = "上午好！工作顺利嘛，不要久坐，多起来走动走动哦！";
